@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+#import a loader to load the templates
+from django.template import loader, RequestContext
+
 #import a HttpResponse to return the index page
 from django.http import HttpResponse
 
@@ -14,9 +17,16 @@ def index(request):
     # get the last five questions created
     latest_questions = Question.objects.order_by('-pub_date')[:5]
 
-    # create a string with de questions text
-    output = ', '.join(q.question_text for q in latest_questions)
-    return HttpResponse(output)
+    # get the new template for index page
+    template = loader.get_template('polls/index.html')
+
+    # pass the data to template with a dictionary
+    context = {
+            'latest_questions': latest_questions,
+        }
+
+    # pass the template with the data to render in screen
+    return HttpResponse(template.render(context))
 
 def detail(request, question_id):
     return HttpResponse('This is a question detail view of the question: %s' % question_id)
