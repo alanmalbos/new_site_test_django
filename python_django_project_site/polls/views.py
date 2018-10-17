@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 #import a loader to load the templates
 from django.template import loader
@@ -25,7 +25,7 @@ def index(request):
 # define a detail question page
 def detail(request, question_id):
     # get a question passed by request
-    question = Question.objects.get(pk = question_id)
+    question = get_object_or_404(Question, pk = question_id)
 
     # pass the question data to template with a dictionary
     context = {'question':question}

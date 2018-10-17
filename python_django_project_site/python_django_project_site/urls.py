@@ -21,5 +21,5 @@ from django.urls import path
 #insert a new path for polls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
+    path('polls/', include('polls.urls', namespace='polls')),
 ]
